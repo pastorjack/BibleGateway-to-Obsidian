@@ -192,10 +192,10 @@ filename=${export_prefix}$export_number # Setting the filename
 done # End of the book exporting loop
 
   # Create an overview file for each book of the Bible:
-  overview_file="links: [[The Bible (Greek)]]\n# G-${book}\n\n[[${abbreviation}-01|Start Reading →]]"
-  echo -e $overview_file >> "$book.md"
+  overview_file="links: [[The Bible]]\n# G-${book}\n\n[[G-${abbreviation}-01|Start Reading →]]"
+  echo -e $overview_file >> "G-$book.md"
   #mkdir -p ./Scripture ("${translation}")/"${folder_name}"; mv "$book.md" './'"${translation}"'/'"${folder_name}"
-  mv "$book.md" './'"${translation}"'/'"${folder_name}"
+  mv "G-$book.md" './'"${translation}"'/'"${folder_name}"
 
   done
 
