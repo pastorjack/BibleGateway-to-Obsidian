@@ -32,7 +32,7 @@ usage()
 # Extract command line options
 
 # Clear translation variable if it exists and set defaults for others
-translation='ESV'    # Which translation to use
+translation='THGNT'    # Which translation to use
 # prefix="0"	# Adding a Capital Letter here will prefix it the file names; eg, use G to prefix a Greek text or H for Hebrew
 boldwords="false"    # Set words of Jesus in bold
 headers="true"      # Include editorial headers
