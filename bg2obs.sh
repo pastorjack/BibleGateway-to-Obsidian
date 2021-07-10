@@ -31,11 +31,12 @@ usage()
 # Extract command line options
 
 # Clear translation variable if it exists and set defaults for others
-translation='WEB'    # Which translation to use
+translation='ESV'    # Which translation to use
 boldwords="false"    # Set words of Jesus in bold
-headers="false"      # Include editorial headers
-aliases="false"      # Create an alias in the YAML front matter for each chapter title
-verbose="false"      # Show download progress for each chapter
+headers="true"      # Include editorial headers
+aliases="true"      # Create an alias in the YAML front matter for each chapter title
+verbose="true"      # Show download progress for each chapter
+prefix="0"	# Adding a Capital Letter here will prefix it the file names; eg, use G to prefix a Greek text or H for Hebrew
 
 # Process command line args
 while getopts 'v:beai?h' c
@@ -98,7 +99,11 @@ fi
 ((next_chapter=chapter+1))
 
 # Exporting
-  export_prefix="${abbreviation}-" # Setting the first half of the filename
+  if ${prefix} -eq "0"; then
+	export_prefix="${abbreviation}-" # Setting the first half of the filename 
+  else
+	export_prefix="{$prefix}-${abbreviation}-" # Setting the first half of the filename  
+  fi
 
   if (( ${chapter} < 10 )); then # Making sure single digit numbers are preceded by a 0 for proper sorting
     #statements
@@ -126,16 +131,16 @@ filename=${export_prefix}$export_number # Setting the filename
   # Formatting Navigation and omitting links that aren't necessary
   if [ ${maxchapter} -eq 1 ]; then
     # For a book that only has one chapter
-    navigation="[[${book}]]"
+    navigation="\n\n###### Navigation\n[[${book}]]"
   elif [ ${chapter} -eq ${maxchapter} ]; then
     # If this is the last chapter of the book
-    navigation="[[${prev_file}|← ${book} ${prev_chapter}]] | [[${book}]]"
+    navigation="\n\n###### v$1\n[[${prev_file}|← ${book} ${prev_chapter}]] | [[${book}]]"
   elif [ ${chapter} -eq 1 ]; then
     # If this is the first chapter of the book
-    navigation="[[${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
+    navigation="\n\n###### v$1\n[[${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
   else
     # Navigation for everything else
-    navigation="[[${prev_file}|← ${book} ${prev_chapter}]] | [[${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
+    navigation="\n\n###### v$1\n[[${prev_file}|← ${book} ${prev_chapter}]] | [[${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
   fi
 
   if ${boldwords} -eq "true" && ${headers} -eq "false"; then
@@ -179,7 +184,7 @@ filename=${export_prefix}$export_number # Setting the filename
   folder_name="${actual_num} - ${book}" # Setting the folder name
 
   # Creating a folder for the book of the Bible if it doesn't exist, otherwise moving new file into existing folder
-  mkdir -p "./Scripture (${translation})/${folder_name}"; mv "${filename}".md './Scripture ('"${translation}"')/'"${folder_name}"
+  mkdir -p "./${translation}/${folder_name}"; mv "${filename}".md './'"${translation}"'/'"${folder_name}"
 
 
 done # End of the book exporting loop
@@ -187,8 +192,8 @@ done # End of the book exporting loop
   # Create an overview file for each book of the Bible:
   overview_file="links: [[The Bible]]\n# ${book}\n\n[[${abbreviation}-01|Start Reading →]]"
   echo -e $overview_file >> "$book.md"
-  #mkdir -p ./Scripture ("${translation}")/"${folder_name}"; mv "$book.md" './Scripture ('"${translation}"')/'"${folder_name}"
-  mv "$book.md" './Scripture ('"${translation}"')/'"${folder_name}"
+  #mkdir -p ./Scripture ("${translation}")/"${folder_name}"; mv "$book.md" './'"${translation}"'/'"${folder_name}"
+  mv "$book.md" './'"${translation}"'/'"${folder_name}"
 
   done
 
