@@ -20,6 +20,7 @@ usage()
 {
 	echo "Usage: $0 [-beaih] [-v version]"
 	echo "  -v version   Specify the translation to download (default = WEB)"
+	echo "  -p G   Specify a prefix for book names (default = none)"
 	echo "  -b    Set words of Jesus in bold"
 	echo "  -e    Include editorial headers"
 	echo "  -a    Create an alias in the YAML front matter for each chapter title"
@@ -32,11 +33,11 @@ usage()
 
 # Clear translation variable if it exists and set defaults for others
 translation='ESV'    # Which translation to use
+prefix="0"	# Adding a Capital Letter here will prefix it the file names; eg, use G to prefix a Greek text or H for Hebrew
 boldwords="false"    # Set words of Jesus in bold
 headers="true"      # Include editorial headers
 aliases="true"      # Create an alias in the YAML front matter for each chapter title
 verbose="true"      # Show download progress for each chapter
-prefix="0"	# Adding a Capital Letter here will prefix it the file names; eg, use G to prefix a Greek text or H for Hebrew
 
 # Process command line args
 while getopts 'v:beai?h' c
