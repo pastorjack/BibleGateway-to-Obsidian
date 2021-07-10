@@ -133,16 +133,16 @@ filename=${export_prefix}$export_number # Setting the filename
   # Formatting Navigation and omitting links that aren't necessary
   if [ ${maxchapter} -eq 1 ]; then
     # For a book that only has one chapter
-    navigation="\n\n###### Navigation\n[[${book}]]"
+    navigation="\n\n###### Navigation \n[[G-${book}]]"
   elif [ ${chapter} -eq ${maxchapter} ]; then
     # If this is the last chapter of the book
-    navigation="\n\n###### v$1\n[[${prev_file}|← ${book} ${prev_chapter}]] | [[${book}]]"
+    navigation="\n\n###### Navigation \n[[${prev_file}|← ${book} ${prev_chapter}]] | [[G-${book}]]"
   elif [ ${chapter} -eq 1 ]; then
     # If this is the first chapter of the book
-    navigation="\n\n###### v$1\n[[${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
+    navigation="\n\n###### Navigation \n[[G-${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
   else
     # Navigation for everything else
-    navigation="\n\n###### v$1\n[[${prev_file}|← ${book} ${prev_chapter}]] | [[${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
+    navigation="\n\n###### Navigation \n[[${prev_file}|← ${book} ${prev_chapter}]] | [[G-${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
   fi
 
   if ${boldwords} -eq "true" && ${headers} -eq "false"; then
@@ -164,7 +164,7 @@ filename=${export_prefix}$export_number # Setting the filename
   # Navigation format
   export="${title}\n\n$navigation\n***\n\n$text\n\n***\n$navigation"
   if ${aliases} -eq "true"; then
-    alias="---\nAliases: [${book} ${chapter}]\ncssclass: bible, greek\n---\n" # Add other aliases or 'Tags:' here if desired. Make sure to follow proper YAML format.
+    alias="---\nAliases: [${book} ${chapter} (Greek)]\ncssclass: bible, greek\n---\n" # Add other aliases or 'Tags:' here if desired. Make sure to follow proper YAML format.
     export="${alias}${export}"
   fi
   
@@ -192,7 +192,7 @@ filename=${export_prefix}$export_number # Setting the filename
 done # End of the book exporting loop
 
   # Create an overview file for each book of the Bible:
-  overview_file="links: [[The Bible]]\n# ${book}\n\n[[${abbreviation}-01|Start Reading →]]"
+  overview_file="links: [[The Bible (Greek)]]\n# G-${book}\n\n[[${abbreviation}-01|Start Reading →]]"
   echo -e $overview_file >> "$book.md"
   #mkdir -p ./Scripture ("${translation}")/"${folder_name}"; mv "$book.md" './'"${translation}"'/'"${folder_name}"
   mv "$book.md" './'"${translation}"'/'"${folder_name}"
