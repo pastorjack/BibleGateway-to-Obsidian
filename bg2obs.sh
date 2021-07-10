@@ -164,7 +164,7 @@ filename=${export_prefix}$export_number # Setting the filename
   # Navigation format
   export="${title}\n\n$navigation\n***\n\n$text\n\n***\n$navigation"
   if ${aliases} -eq "true"; then
-    alias="---\nAliases: [${book} ${chapter}]\n---\n" # Add other aliases or 'Tags:' here if desired. Make sure to follow proper YAML format.
+    alias="---\nAliases: [${book} ${chapter}]\ncssclass: bible, greek\n---\n" # Add other aliases or 'Tags:' here if desired. Make sure to follow proper YAML format.
     export="${alias}${export}"
   fi
   
