@@ -32,7 +32,7 @@ usage()
 # Extract command line options
 
 # Clear translation variable if it exists and set defaults for others
-translation='ESV'    # Which translation to use
+translation='WLC'    # Which translation to use
 # prefix="0"	# Adding a Capital Letter here will prefix it the file names; eg, use G to prefix a Greek text or H for Hebrew
 boldwords="false"    # Set words of Jesus in bold
 headers="true"      # Include editorial headers
@@ -104,7 +104,7 @@ fi
  # if ${prefix} -eq "0"; then
 #	export_prefix="${abbreviation}-" # Setting the first half of the filename 
  # else
-	export_prefix="G-${abbreviation}-" # Setting the first half of the filename  
+	export_prefix="H-${abbreviation}-" # Setting the first half of the filename  
   # fi
 
   if (( ${chapter} < 10 )); then # Making sure single digit numbers are preceded by a 0 for proper sorting
@@ -133,16 +133,16 @@ filename=${export_prefix}$export_number # Setting the filename
   # Formatting Navigation and omitting links that aren't necessary
   if [ ${maxchapter} -eq 1 ]; then
     # For a book that only has one chapter
-    navigation="\n\n###### Navigation \n[[G-${book}]]"
+    navigation="\n\n###### Navigation \n[[H-${book}]]"
   elif [ ${chapter} -eq ${maxchapter} ]; then
     # If this is the last chapter of the book
-    navigation="\n\n###### Navigation \n[[${prev_file}|← ${book} ${prev_chapter}]] | [[G-${book}]]"
+    navigation="\n\n###### Navigation \n[[${prev_file}|← ${book} ${prev_chapter}]] | [[H-${book}]]"
   elif [ ${chapter} -eq 1 ]; then
     # If this is the first chapter of the book
-    navigation="\n\n###### Navigation \n[[G-${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
+    navigation="\n\n###### Navigation \n[[H-${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
   else
     # Navigation for everything else
-    navigation="\n\n###### Navigation \n[[${prev_file}|← ${book} ${prev_chapter}]] | [[G-${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
+    navigation="\n\n###### Navigation \n[[${prev_file}|← ${book} ${prev_chapter}]] | [[H-${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
   fi
 
   if ${boldwords} -eq "true" && ${headers} -eq "false"; then
@@ -192,10 +192,10 @@ filename=${export_prefix}$export_number # Setting the filename
 done # End of the book exporting loop
 
   # Create an overview file for each book of the Bible:
-  overview_file="links: [[The Bible]]\n# G-${book}\n\n[[G-${abbreviation}-01|Start Reading →]]"
-  echo -e $overview_file >> "G-$book.md"
+  overview_file="links: [[The Bible]]\n# H-${book}\n\n[[H-${abbreviation}-01|Start Reading →]]"
+  echo -e $overview_file >> "H-$book.md"
   #mkdir -p ./Scripture ("${translation}")/"${folder_name}"; mv "$book.md" './'"${translation}"'/'"${folder_name}"
-  mv "G-$book.md" './'"${translation}"'/'"${folder_name}"
+  mv "H-$book.md" './'"${translation}"'/'"${folder_name}"
 
   done
 
