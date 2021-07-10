@@ -20,7 +20,7 @@ usage()
 {
 	echo "Usage: $0 [-beaih] [-v version]"
 	echo "  -v version   Specify the translation to download (default = WEB)"
-	echo "  -p G   Specify a prefix for book names (default = none)"
+	# echo "  -p G   Specify a prefix for book names (default = none)"
 	echo "  -b    Set words of Jesus in bold"
 	echo "  -e    Include editorial headers"
 	echo "  -a    Create an alias in the YAML front matter for each chapter title"
@@ -33,7 +33,7 @@ usage()
 
 # Clear translation variable if it exists and set defaults for others
 translation='ESV'    # Which translation to use
-prefix="0"	# Adding a Capital Letter here will prefix it the file names; eg, use G to prefix a Greek text or H for Hebrew
+# prefix="0"	# Adding a Capital Letter here will prefix it the file names; eg, use G to prefix a Greek text or H for Hebrew
 boldwords="false"    # Set words of Jesus in bold
 headers="true"      # Include editorial headers
 aliases="true"      # Create an alias in the YAML front matter for each chapter title
@@ -44,7 +44,7 @@ while getopts 'v:beai?h' c
 do
 	case $c in
 		v) translation=$OPTARG ;;
-		p) prefix=$OPTARG ;;
+#		p) prefix=$OPTARG ;;
 		b) boldwords="true" ;;
 		e) headers="true" ;;
 		a) aliases="true" ;;
@@ -101,11 +101,11 @@ fi
 ((next_chapter=chapter+1))
 
 # Exporting
-  if ${prefix} -eq "0"; then
-	export_prefix="${abbreviation}-" # Setting the first half of the filename 
-  else
-	export_prefix="{$prefix}-${abbreviation}-" # Setting the first half of the filename  
-  fi
+ # if ${prefix} -eq "0"; then
+#	export_prefix="${abbreviation}-" # Setting the first half of the filename 
+ # else
+	export_prefix="G-${abbreviation}-" # Setting the first half of the filename  
+  # fi
 
   if (( ${chapter} < 10 )); then # Making sure single digit numbers are preceded by a 0 for proper sorting
     #statements
