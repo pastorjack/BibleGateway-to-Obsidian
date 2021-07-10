@@ -43,6 +43,7 @@ while getopts 'v:beai?h' c
 do
 	case $c in
 		v) translation=$OPTARG ;;
+		p) prefix=$OPTARG ;;
 		b) boldwords="true" ;;
 		e) headers="true" ;;
 		a) aliases="true" ;;
